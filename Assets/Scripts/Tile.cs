@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    [SerializeField] public int islandListIndex;
+    public int islandListIndex;
     public int row;
     public int column;
     public int targetRow;
-    public float fallSpeed = .5f;
+    public float fallSpeed;
 
     private GameObject tileBelow;
     private BoardGrid grid;
-    private Controls controls;
     private Vector2 tempPos;
 
     void Start()
     {
         grid = FindObjectOfType<BoardGrid>();
-        controls = FindObjectOfType<Controls>();
+        fallSpeed = 0.1f;
     }
 
+    //Ensures the tile is in the right position after gaps have been made
     void Update()
     {
         targetRow = row;
@@ -38,22 +38,13 @@ public class Tile : MonoBehaviour
         }
     }
 
+    //If the player touches the tile and the game is in move state and the island is bigger than 1, it will call the BoardGrids DestroyIsland() function
     private void OnMouseDown()
     {
-        if (controls.GetPlayable() && grid.islands[islandListIndex].Count > 1)
+        if (grid.currentState == GameState.move && grid.islands[islandListIndex].Count > 1)
         {
-            controls.SetPlayable(false);
+            grid.currentState = GameState.wait;
             grid.DestroyIsland(islandListIndex);
-        }
-    }
-
-    void MoveTile()
-    {
-        if (row > 0)
-        {
-            tileBelow = grid.allTiles[column, row - 1];
-            tileBelow.GetComponent<Tile>().row += 1;
-            row -= 1;
         }
     }
 }
