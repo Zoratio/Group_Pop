@@ -7,21 +7,19 @@ using UnityEngine.SceneManagement;
 
 public class Goal : MonoBehaviour
 {
-    public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI finalScoreText;
-    public TextMeshProUGUI moves;
+    [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI finalScoreText;
+    [SerializeField] TextMeshProUGUI moves;
 
-    public GameObject GameOverCanvas;
-    public int score;
+    [SerializeField] GameObject GameOverCanvas;
+    private int score;
     public int movesRemaining;
-    private BoardGrid grid;
 
 
     // Start is called before the first frame update
     void Start()
     {
         score = 0;
-        grid = FindObjectOfType<BoardGrid>();
     }
 
     // Update is called once per frame
@@ -46,7 +44,7 @@ public class Goal : MonoBehaviour
     {
         if (movesRemaining <= 1)
         {
-            grid.currentState = GameState.wait;
+            //grid.currentState = GameState.wait;
             GameOver();
         }
         movesRemaining--;

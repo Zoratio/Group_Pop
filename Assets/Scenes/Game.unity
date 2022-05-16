@@ -226,7 +226,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridX: 9
   gridY: 9
-  offset: 20
   currentState: 0
   tilePrefab: {fileID: 5896893215111100368, guid: 496b15664d1e024408bae77bbaaf1771,
     type: 3}
@@ -237,7 +236,6 @@ MonoBehaviour:
   - {fileID: 2966918989499121141, guid: 00a35186dcf13a949beef90455128cdb, type: 3}
   popParticle: {fileID: 6503696360832151706, guid: 7c218077ff65b214eb7eab82cc5b34ce,
     type: 3}
-  particleDestroyDelay: 0.2
   pointsPerPop: 50
 --- !u!4 &365853700
 Transform:
@@ -469,8 +467,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a2309ad91996f648b5941ca30ba9cd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aspectRatio: 0.5625
-  padding: 2
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -1402,7 +1398,6 @@ MonoBehaviour:
   finalScoreText: {fileID: 878550677}
   moves: {fileID: 1018193404}
   GameOverCanvas: {fileID: 2085826002}
-  score: 0
   movesRemaining: 20
 --- !u!1 &1997989473
 GameObject:

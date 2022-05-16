@@ -4,37 +4,39 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    public int islandListIndex;
-    public int row;
-    public int column;
-    public int targetRow;
-    public float fallSpeed;
+    [HideInInspector] public int islandListIndex;
+    [HideInInspector] public int row;
+    [HideInInspector] public int column;
+    [HideInInspector] public int targetRow;
+    [HideInInspector] public float fallSpeed;
 
     private GameObject tileBelow;
     private BoardGrid grid;
     private Vector2 tempPos;
 
+
     void Start()
     {
         grid = FindObjectOfType<BoardGrid>();
-        fallSpeed = 0.1f;
+        fallSpeed = 0.13f;
     }
 
     //Ensures the tile is in the right position after gaps have been made
-    void Update()
+    void FixedUpdate()
     {
         targetRow = row;
         
-        if (Mathf.Abs(targetRow - transform.position.y) > .1)
+        if (Mathf.Abs(targetRow - transform.position.y) > .01)
         {
             tempPos = new Vector2(transform.position.x, targetRow);
             transform.position = Vector2.Lerp(transform.position, tempPos, fallSpeed);
-        }
-        else
-        {
-            tempPos = new Vector2(transform.position.x, targetRow);
-            transform.position = tempPos;
             grid.allTiles[column, row] = this.gameObject;
+
+            if (Mathf.Abs(targetRow - transform.position.y) <= .01)
+            {
+                tempPos = new Vector2(transform.position.x, targetRow);
+                transform.position = tempPos;
+            }
         }
     }
 
@@ -43,7 +45,6 @@ public class Tile : MonoBehaviour
     {
         if (grid.currentState == GameState.move && grid.islands[islandListIndex].Count > 1)
         {
-            grid.currentState = GameState.wait;
             grid.DestroyIsland(islandListIndex);
         }
     }

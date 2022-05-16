@@ -12,25 +12,27 @@ public class BoardGrid : MonoBehaviour
 {
     public int gridX;
     public int gridY;
-    public int offset;
+    private int offset = 20;
 
-    public GameState currentState;
+    [HideInInspector] public GameState currentState;
 
-    public GameObject tilePrefab;
-    public GameObject[] tiles;
+    [SerializeField] GameObject tilePrefab;
+    [SerializeField] GameObject[] tiles;
+    [SerializeField] GameObject popParticle;
     public GameObject[,] allTiles;
-    public GameObject popParticle;
-    public float particleDestroyDelay;
+    private float particleDestroyDelay = .2f;
+    private float moveWait = .8f;
+    private float fillWait = .2f;
 
     public List<List<GameObject>> islands;
 
     private Goal goal;
-    public int pointsPerPop;
+    [SerializeField] int pointsPerPop;
+
 
     void OnEnable()
     {
         goal = FindObjectOfType<Goal>();
-        pointsPerPop = 50;
         allTiles = new GameObject[gridX, gridY];
         islands = new List<List<GameObject>>();
         GridSetup();
@@ -70,6 +72,7 @@ public class BoardGrid : MonoBehaviour
     //Once destroyed, the TilesFall() function is called to reposition the tiles after gaps have occurred.
     public void DestroyIsland(int index)
     {
+        currentState = GameState.wait;
         float scoreMultiplier = 1f;
         int tiles = 0;
         foreach (GameObject tile in islands[index])
@@ -182,7 +185,7 @@ public class BoardGrid : MonoBehaviour
             }
             emptyCount = 0;
         }
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(fillWait);
         StartCoroutine(FillGrid());
     }
 
@@ -218,7 +221,7 @@ public class BoardGrid : MonoBehaviour
         islands.Clear();
         FindIslands(allTiles);
 
-        yield return new WaitForSeconds(.8f);
+        yield return new WaitForSeconds(moveWait);
         if (goal.movesRemaining > 0)
             currentState = GameState.move;        
     }

@@ -5,8 +5,8 @@ using UnityEngine;
 public class CameraPos : MonoBehaviour
 {
     private BoardGrid grid;
-    public float aspectRatio = 0.5625f;
-    public float padding = 2;
+    private float aspectRatio = 0.5625f;
+    private float padding = 2;
 
     // Start is called before the first frame update
     void Start()
