@@ -10,7 +10,7 @@ public class CameraPos : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    {        
         grid = FindObjectOfType<BoardGrid>();   
         if (grid != null)
         {

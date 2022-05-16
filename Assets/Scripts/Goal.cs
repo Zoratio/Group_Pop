@@ -20,14 +20,10 @@ public class Goal : MonoBehaviour
     void Start()
     {
         score = 0;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         scoreText.text = "Score: " + score;
         moves.text = "Moves: " + movesRemaining;
     }
+
 
     //Called from the BoardGrid script when an island is destroyed. 
     //For every tile that was part of the island, the multiplier is increased. 
@@ -35,6 +31,7 @@ public class Goal : MonoBehaviour
     public void IncreaseScore(float multiplier)
     {
         score += (int)Mathf.Round(multiplier);
+        scoreText.text = "Score: " + score;
         DecreaseMoves();
     }
 
@@ -44,10 +41,10 @@ public class Goal : MonoBehaviour
     {
         if (movesRemaining <= 1)
         {
-            //grid.currentState = GameState.wait;
             GameOver();
         }
         movesRemaining--;
+        moves.text = "Moves: " + movesRemaining;
     }
 
     //Canvas that displays the players final score and provides a restart button if they wish to play again.
